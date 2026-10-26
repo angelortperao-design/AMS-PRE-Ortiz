@@ -1,0 +1,50 @@
+@startuml
+title Diagrama de actividades
+
+|Usuario|
+start
+:Iniciar sesión;
+
+|Sistema|
+if (¿Credenciales válidas?) then (sí)
+else (no)
+    :Mostrar error de autenticación;
+    :Dar opcion de registro;
+    if(¿Tiene registro?) then (si)
+    else (no)
+        |Usuario|
+        :Se registra;
+        :Vuekve a intentar;
+    endif
+endif
+
+:Mostrar catálogo de productos;
+
+|Usuario|
+:Seleccionar producto;
+:Indicar cantidad;
+if (¿Usuario autenticado/existente?) then (Sí)
+    if (¿Seguir comprando?) then (si)
+        :Agrega a carrito;
+    else (no)
+        :Confirmar compra;
+    endif
+
+    |Sistema|
+    if (¿producto y usuario valido?) then (sí)
+        :Asignar fecha actual (order_date);
+        :Registrar pedido en orders;
+        :Generar ID único de confirmación;
+        |Usuario|
+        :Recibir confirmación del pedido;
+    else (no)
+        |Sistema|
+        :Rechazar pedido (integridad referencial);
+        |Usuario|
+        :Ver mensaje de error;
+    endif
+else (No)
+  :Pedir validación de credenciales;
+endif
+stop
+@enduml

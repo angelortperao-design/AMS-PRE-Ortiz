@@ -1,0 +1,35 @@
+@startuml
+top to bottom direction
+
+actor Cliente
+
+rectangle "Sistema de gestion de pedidos (en linea)" {
+  usecase "Registrarse" as UC1
+  usecase "Validar credenciales" as UC2
+  usecase "Consultar catalogo" as UC3
+  usecase "Consultar detalles del producto" as UC4
+  usecase "Agregar producto al carrito" as UC5
+  usecase "Consultar carrito" as UC6
+  usecase "Crear pedido" as UC7
+  usecase "Acceder a metodods de pago variados" as UC8
+  usecase "Consultar historial de pedidos" as UC9
+}
+
+Cliente --> UC1
+Cliente --> UC2
+Cliente --> UC3
+Cliente --> UC4
+Cliente --> UC6
+
+UC1 ..> UC2 : <<extend>>
+UC5 ..> UC2 : <<include>>
+UC7 ..> UC2 : <<include>>
+UC8 ..> UC7 : <<include>>
+UC9 ..> UC2 : <<include>>
+
+note right of UC9
+  El cliente solo ve
+  su propio historial (RF-02)
+end note
+@enduml
+

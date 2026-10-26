@@ -1,0 +1,34 @@
+@startuml
+class User {
+  - id: int
+  - name: String
+  - email: String
+  + register(): void
+  + login(): boolean
+}
+
+class Product {
+  - id: int
+  - name: String
+  - price: double
+  + getDetails(): String
+}
+
+class Order {
+  - id: int
+  - userId: int
+  - productId: int
+  - quantity: int
+  - orderDate: Date
+}
+
+class OrderRepository {
+  - history: List<Order> 
+  + save(order: Order): int
+  + findByUserId(userId: int): List<Order>
+}
+
+User "1" -- "M" Order : realiza >
+Product "1" -- "M" Order : pertenece a <
+OrderRepository ..> Order : gestiona / guarda >
+@enduml
